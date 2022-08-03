@@ -11,7 +11,7 @@
     </template>
 
     <template #movements>
-      <Movements />
+      <Movements :movements="movements" />
     </template>
   </Layout>
 </template>
@@ -20,7 +20,7 @@
 import Layout from "@/components/Layout.vue";
 import Header from "@/components/Header.vue";
 import Resume from "@/components/Resume/Index.vue";
-import Movements from "@/components/Movements.vue";
+import Movements from "@/components/Movements/Movements.vue";
 
 export default {
   components: {
@@ -34,6 +34,38 @@ export default {
     return {
       amount: null,
       label: null,
+      movements: [
+        {
+          id: 1,
+          title: "Movimiento",
+          description: "Deposito de salario",
+          amount: "1000",
+        },
+        {
+          id: 2,
+          title: "Movimiento 1",
+          description: "Deposito de honorarios",
+          amount: "500",
+        },
+        {
+          id: 3,
+          title: "Movimiento 3",
+          description: "Comida",
+          amount: "-100",
+        },
+        {
+          id: 4,
+          title: "Movimiento 4",
+          description: "Colegiatura",
+          amount: "1000",
+        },
+        {
+          id: 5,
+          title: "Movimiento 5",
+          description: "Reparación equipo",
+          amount: "1000",
+        },
+      ],
     };
   },
 };
