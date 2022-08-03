@@ -1,7 +1,45 @@
 <template>
   <button @click="showModal = true">Agregar movimiento</button>
   <teleport to="#app">
-    <Modal v-show="showModal" @close="showModal = false"> Formulario </Modal>
+    <Modal v-show="showModal" @close="showModal = false">
+      <form @submit.prevent="submit">
+        <div class="field">
+          <label for="title">Titulo</label>
+          <input type="text" name="title" v-model="title" />
+        </div>
+
+        <div class="field">
+          <label for="amount">Titulo</label>
+          <input type="number" name="amount" v-model="amount" />
+        </div>
+
+        <div class="field">
+          <label for="description">Descripcion</label>
+          <textarea
+            rows="4"
+            name="description"
+            v-model="description"
+          ></textarea>
+        </div>
+
+        <div class="field">
+          <label for="amount">Tipo de movimiento</label>
+          <label class="radio-label">
+            <input type="radio" v-model="movementType" value="Ingreso" />
+            <span>Ingreso</span>
+          </label>
+
+          <label class="radio-label">
+            <input type="radio" v-model="movementType" value="Gasto" />
+            <span>Gasto</span>
+          </label>
+        </div>
+
+        <div class="action">
+          <button>Agregar movimiento</button>
+        </div>
+      </form>
+    </Modal>
   </teleport>
 </template>
 
@@ -10,6 +48,15 @@ import { ref } from "vue";
 import Modal from "@/components/Modal.vue";
 
 const showModal = ref(false);
+const title = ref("");
+const description = ref("");
+const amount = ref("");
+const movementType = ref("Ingreso");
+
+const submit = () => {
+  console.log("submit");
+  showModal.value = false;
+};
 </script>
 
 <style scoped>
