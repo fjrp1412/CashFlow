@@ -6,6 +6,10 @@
         v-for="movement in movements"
         :key="movement.id"
         :title="movement.title"
+        :description="movement.description"
+        :amount="movement.amount"
+        :id="movement.id"
+        @remove="removeItem"
       >
       </MovementItem>
     </div>
@@ -24,6 +28,9 @@ const props = defineProps({
 });
 
 const { movements } = toRefs(props);
+const removeItem = (id) => {
+  console.log(id);
+};
 </script>
 
 <style scoped>
