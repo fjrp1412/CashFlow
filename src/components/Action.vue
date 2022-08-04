@@ -5,12 +5,12 @@
       <form @submit.prevent="submit">
         <div class="field">
           <label for="title">Titulo</label>
-          <input type="text" name="title" v-model="title" />
+          <input type="text" name="title" v-model="newMovement.title" />
         </div>
 
         <div class="field">
-          <label for="amount">Titulo</label>
-          <input type="number" name="amount" v-model="amount" />
+          <label for="amount">Monto</label>
+          <input type="number" name="amount" v-model="newMovement.amount" />
         </div>
 
         <div class="field">
@@ -18,19 +18,27 @@
           <textarea
             rows="4"
             name="description"
-            v-model="description"
+            v-model="newMovement.description"
           ></textarea>
         </div>
 
         <div class="field">
           <label for="amount">Tipo de movimiento</label>
           <label class="radio-label">
-            <input type="radio" v-model="movementType" value="Ingreso" />
+            <input
+              type="radio"
+              v-model="newMovement.movementType"
+              value="Ingreso"
+            />
             <span>Ingreso</span>
           </label>
 
           <label class="radio-label">
-            <input type="radio" v-model="movementType" value="Gasto" />
+            <input
+              type="radio"
+              v-model="newMovement.movementType"
+              value="Gasto"
+            />
             <span>Gasto</span>
           </label>
         </div>
@@ -44,18 +52,28 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, reactive, defineEmits } from "vue";
 import Modal from "@/components/Modal.vue";
 
 const showModal = ref(false);
-const title = ref("");
-const description = ref("");
-const amount = ref("");
-const movementType = ref("Ingreso");
+const emit = defineEmits(["create"]);
+
+const newMovement = reactive({
+  title: "",
+  description: "",
+  amount: "",
+  movementType: "Ingreso",
+  time: new Date(),
+});
 
 const submit = () => {
-  console.log("submit");
   showModal.value = false;
+  newMovement.amount =
+    newMovement.movementType === "Ingreso"
+      ? newMovement.amount
+      : -newMovement.amount;
+
+  emit("create", newMovement);
 };
 </script>
 

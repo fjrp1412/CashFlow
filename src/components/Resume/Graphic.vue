@@ -52,8 +52,6 @@ const points = computed(() => {
     return `${points} ${x},${y}`;
   }, "0, 100");
 });
-
-console.log(amounts.value);
 </script>
 
 <style scoped>

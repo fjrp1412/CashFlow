@@ -26,7 +26,7 @@ const props = defineProps({
   title: String,
   description: String,
   amount: Number,
-  id: Number,
+  id: [Number, Date],
 });
 
 const { title, id, amount, description } = toRefs(props);

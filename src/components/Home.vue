@@ -9,13 +9,13 @@
           <Graphic :amounts="amounts" />
         </template>
         <template #action>
-          <Action />
+          <Action @create="create" />
         </template>
       </Resume>
     </template>
 
     <template #movements>
-      <Movements :movements="movements" />
+      <Movements :movements="movements" @remove="remove" />
     </template>
   </Layout>
 </template>
@@ -126,8 +126,6 @@ export default {
         })
         .map((movement) => movement.amount);
 
-      console.log(lastDays);
-
       return lastDays.map((movement, idx) => {
         const lastMovements = lastDays.slice(0, idx);
 
@@ -135,6 +133,15 @@ export default {
           return sum + movement;
         }, 0);
       });
+    },
+  },
+  methods: {
+    create(payload) {
+      payload.id = this.movements.length + 1;
+      this.movements.push(payload);
+    },
+    remove(id) {
+      this.movements = this.movements.filter((movement) => movement.id !== id);
     },
   },
 };
