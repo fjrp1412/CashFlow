@@ -1,7 +1,9 @@
 <template>
   <main>
-    <p>{{ totalVisual }}</p>
-    <h1>{{ amountCurrency }}</h1>
+    <p>{{ label }}</p>
+    <h1 :class="{ red: isNegative, green: !isNegative }">
+      {{ amountCurrency }}
+    </h1>
 
     <div class="graphic">
       <slot name="graphic"></slot>
@@ -22,25 +24,17 @@ export default {
   props: {
     label: {
       type: String,
-    },
-    amount: {
-      type: Number,
-      default: null,
+      default: "Monto total",
     },
     totalAmount: Number,
   },
 
   computed: {
-    amountVisual() {
-      return this.amount || this.totalAmount;
-    },
-
-    totalVisual() {
-      return this.label || "Monto total";
-    },
-
     amountCurrency() {
-      return currencyFormatter.format(this.amountVisual);
+      return currencyFormatter.format(this.totalAmount);
+    },
+    isNegative() {
+      return this.totalAmount < 0;
     },
   },
 };
@@ -73,5 +67,12 @@ h1 {
   width: 100%;
   padding: 48px 24px;
   box-sizing: border-box;
+}
+
+.red {
+  color: red;
+}
+.green {
+  color: green;
 }
 </style>

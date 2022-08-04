@@ -4,7 +4,7 @@
       <Header></Header>
     </template>
     <template #resume>
-      <Resume :label="label" :amount="amount" :totalAmount="totalAmount">
+      <Resume :label="label" :totalAmount="totalAmount">
         <template #graphic>
           <Graphic :amounts="amounts" />
         </template>
@@ -40,7 +40,6 @@ export default {
 
   data() {
     return {
-      amount: null,
       label: null,
       movements: [],
     };
@@ -64,7 +63,7 @@ export default {
         .map((movement) => movement.amount);
 
       return lastDays.map((movement, idx) => {
-        const lastMovements = lastDays.slice(0, idx);
+        const lastMovements = lastDays.slice(0, idx + 1);
 
         return lastMovements.reduce((sum, movement) => {
           return sum + movement;
