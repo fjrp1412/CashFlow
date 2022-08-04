@@ -6,7 +6,7 @@
     <template #resume>
       <Resume :label="label" :amount="amount" :totalAmount="100000">
         <template #graphic>
-          <Graphic />
+          <Graphic :amounts="amounts" />
         </template>
         <template #action>
           <Action />
@@ -75,6 +75,11 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    amounts() {
+      return this.movements.map((movement) => movement.amount);
+    },
   },
 };
 </script>
