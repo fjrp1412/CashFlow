@@ -4,7 +4,7 @@
       <Header></Header>
     </template>
     <template #resume>
-      <Resume :label="label" :amount="amount" :totalAmount="100000">
+      <Resume :label="label" :amount="amount" :totalAmount="totalAmount">
         <template #graphic>
           <Graphic :amounts="amounts" />
         </template>
@@ -42,79 +42,16 @@ export default {
     return {
       amount: null,
       label: null,
-      movements: [
-        {
-          id: 1,
-          title: "Movimiento",
-          description: "Deposito de salario",
-          amount: 100,
-          time: new Date("08-04-2022"),
-        },
-        {
-          id: 2,
-          title: "Movimiento 1",
-          description: "Deposito de honorarios",
-          amount: 200,
-          time: new Date("08-04-2022"),
-        },
-        {
-          id: 3,
-          title: "Movimiento 3",
-          description: "Comida",
-          amount: 500,
-          time: new Date("08-04-2022"),
-        },
-        {
-          id: 4,
-          title: "Movimiento 4",
-          description: "Colegiatura",
-          amount: 200,
-          time: new Date("08-04-2022"),
-        },
-        {
-          id: 5,
-          title: "Movimiento 5",
-          description: "Reparación equipo",
-          amount: -400,
-          time: new Date("08-04-2022"),
-        },
-        {
-          id: 6,
-          title: "Movimiento 6",
-          description: "Reparación equipo",
-          amount: -600,
-          time: new Date("08-04-2022"),
-        },
-        {
-          id: 7,
-          title: "Movimiento 7",
-          description: "Reparación equipo",
-          amount: -300,
-          time: new Date("08-04-2022"),
-        },
-        {
-          id: 8,
-          title: "Movimiento 8",
-          description: "Reparación equipo",
-          amount: 0,
-          time: new Date("08-04-2022"),
-        },
-        {
-          id: 9,
-          title: "Movimiento 9",
-          description: "Reparación equipo",
-          amount: 300,
-          time: new Date("07-04-2022"),
-        },
-        {
-          id: 10,
-          title: "Movimiento 10",
-          description: "Reparación equipo",
-          amount: 500,
-          time: new Date("07-04-2022"),
-        },
-      ],
+      movements: [],
     };
+  },
+  mounted() {
+    const movements = JSON.parse(localStorage.getItem("movements"));
+    if (Array.isArray(movements)) {
+      this.movements = movements?.map((movement) => {
+        return { ...movement, time: new Date(movement.time) };
+      });
+    }
   },
   computed: {
     amounts() {
@@ -134,14 +71,23 @@ export default {
         }, 0);
       });
     },
+    totalAmount() {
+      return this.movements.reduce((acc, curr) => acc + curr.amount, 0);
+    },
   },
   methods: {
     create(payload) {
       payload.id = this.movements.length + 1;
       this.movements.push(payload);
+      this.save();
     },
     remove(id) {
       this.movements = this.movements.filter((movement) => movement.id !== id);
+      this.save();
+    },
+
+    save() {
+      localStorage.setItem("movements", JSON.stringify(this.movements));
     },
   },
 };

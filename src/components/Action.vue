@@ -58,13 +58,19 @@ import Modal from "@/components/Modal.vue";
 const showModal = ref(false);
 const emit = defineEmits(["create"]);
 
-const newMovement = reactive({
+const initialValue = {
   title: "",
   description: "",
   amount: "",
   movementType: "Ingreso",
   time: new Date(),
-});
+};
+
+const newMovement = reactive({ ...initialValue });
+
+const resetForm = () => {
+  Object.assign(newMovement, initialValue);
+};
 
 const submit = () => {
   showModal.value = false;
@@ -73,7 +79,9 @@ const submit = () => {
       ? newMovement.amount
       : -newMovement.amount;
 
-  emit("create", newMovement);
+  emit("create", { ...newMovement });
+
+  resetForm();
 };
 </script>
 
