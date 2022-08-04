@@ -1,24 +1,15 @@
-# cashflow
+# CashFlow app
+## Resume
+Simple app where you can enter your cash movements build it in Vue.js.
+Link to the deploy app: https://cashmovementviewer.netlify.app/
+## Images
 
-## Project setup
-```
-npm install
-```
+![Main screen image](./img/main-screen.PNG)
+![Form screen image](./img/form-screen.PNG)
+![Movements screen image](./img/detail-screen.PNG)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Commands
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+ - **npm run serve**: Run development server in localhost
+ - **npm run lint**: Run linter in files
+ - **npm run build**: Build the production version of the app
