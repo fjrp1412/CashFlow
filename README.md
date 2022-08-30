@@ -1,7 +1,7 @@
 # CashFlow app
 ## Resume
 Simple app where you can enter your cash movements build it in Vue.js.
-Link to the deploy app: https://cashmovementviewer.netlify.app/
+Link to the deploy app: https://cashflowviewer.netlify.app/
 ## Images
 
 ![Main screen image](./img/main-screen.PNG)
